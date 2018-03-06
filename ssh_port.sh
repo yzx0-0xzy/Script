@@ -17,4 +17,8 @@ if [ -e "/etc/ssh/sshd_config" ];then
         sed -i "s@^Port.*@Port $SSH_PORT@" /etc/ssh/sshd_config
     fi
 fi
+yum provides /usr/sbin/semanage
+yum whatprovides /usr/sbin/semanage
+yum -y install policycoreutils-python
+semanage port -a -t ssh_port_t -p tcp $SSH_PORT
 systemctl restart sshd
